@@ -60,5 +60,7 @@ This application requires a **Flickr API key** to function.
 
    ```properties
    FLICKR_API_KEY="YOUR_API_KEY_HERE"
-##
+## 📹 Demo
 
+If the video doesn’t autoplay in GitHub, [click here to view it directly](https://drive.google.com/file/d/1CdGA0RPDUL-eXay7SdHt1Na-8dUGgIOl/view?usp=drive_link).
+##

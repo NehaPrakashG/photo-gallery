@@ -6,11 +6,11 @@ object Dimens {
     val GridSpacing = 4.dp
     val GridPadding = 2.dp
     val GridFooterPadding = 16.dp
-    val LoaderSize = 24.dp
-    val GridItemElevation = 1.dp
 
     val SmallPadding = 8.dp
+    val SemiPadding = 12.dp
     val MediumPadding = 16.dp
+    val ExtraPadding = 20.dp
     val LargePadding = 24.dp
     val ExtraLargePadding = 32.dp
 

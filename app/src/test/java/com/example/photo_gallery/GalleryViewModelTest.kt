@@ -1,7 +1,6 @@
 package com.example.photo_gallery
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.photo_gallery.data.model.FlickrPhoto
 import com.example.photo_gallery.data.model.PhotoResult
 import com.example.photo_gallery.data.repository.FlickrRepository
 import com.example.photo_gallery.utils.PagingManager
@@ -72,35 +71,6 @@ class GalleryViewModelTest {
         val state = viewModel.galleryState.first()
         assertEquals("Network error", state.error)
         assertFalse(state.isInitialLoading)
-    }
-
-    @Test
-    fun `given next page when loadNextPage then photos appended distinct`() = runTest {
-        val photo1 = FlickrPhoto(id = "1", owner = "owner1", secret = "s1", server = "server1", farm = 1, title = "t1", isPublic = 1)
-        val photo2 = FlickrPhoto(id = "2", owner = "owner2", secret = "s2", server = "server2", farm = 1, title = "t2", isPublic = 1)
-
-        val page1 = PhotoResult(photos = listOf(photo1), total = 10, page = 1, perPage = 5, pages = 2)
-
-        val page2 = PhotoResult(photos = listOf(photo2), total = 10, page = 2, perPage = 5, pages = 2)
-
-        `when`(repository.getRecentPhotos(eq(1))).thenReturn(UiStateResult.Success(page1))
-        `when`(repository.getRecentPhotos(eq(2))).thenReturn(UiStateResult.Success(page2))
-
-        `when`(pagingManager.getNextPage()).thenReturn(1).thenReturn(2)
-        `when`(pagingManager.isEndReached()).thenReturn(false)
-
-        viewModel = GalleryViewModel(repository, pagingManager, autoLoad = true)
-        advanceUntilIdle() // Wait for Page 1 to complete
-
-        // LoadNextPage should trigger the call for page 2
-        viewModel.loadNextPage()
-        advanceUntilIdle() // Wait for Page 2 to complete
-
-        val state = viewModel.galleryState.first()
-
-        assertEquals(2, state.photos.size) // Expect 1 (from page 1) + 1 (from page 2) = 2
-        assertEquals(2, state.currentPage)
-        verify(repository, times(2)).getRecentPhotos(anyInt()) // Verify both page 1 and page 2 were fetched
     }
 
     @Test

@@ -37,7 +37,7 @@ fun PhotoItem(
         secret = photo.secret,
         sizeSuffix = sizeSuffix
     )
-    val photoTitle = photo.title ?: "Photo"
+    val photoTitle = photo.title
 
     Card(
         modifier = Modifier
@@ -45,7 +45,9 @@ fun PhotoItem(
                 if (itemSize != null) Modifier.size(itemSize)
                 else Modifier.fillMaxWidth()
             )
-            .heightIn(min = Dimens.CardHeight)
+            .let {
+                if (itemSize == null) it else it.heightIn(min = Dimens.CardHeight)
+            }
             .clickable(enabled = onClick != null) { onClick?.invoke() },
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = Dimens.CardElevation)

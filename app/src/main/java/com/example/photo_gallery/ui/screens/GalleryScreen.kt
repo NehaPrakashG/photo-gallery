@@ -18,6 +18,7 @@ import com.example.photo_gallery.ui.component.LoadingView
 import com.example.photo_gallery.ui.component.PhotoGrid
 import com.example.photo_gallery.viewmodel.GalleryViewModel
 import com.example.photo_gallery.R
+import com.example.photo_gallery.ui.component.ErrorDialog
 
 @Composable
 fun GalleryScreen(
@@ -77,10 +78,10 @@ fun GalleryScreen(
 
             when {
                 state.photos.isEmpty() && state.error != null -> {
-                    /*  ErrorDialog(
-                          message = state.error!!.ifBlank { stringResource(R.string.error_generic) },
+                      ErrorDialog(
+                          message = state.error.ifBlank { stringResource(R.string.error_generic) },
                           onDismiss = { viewModel.reload() }
-                      )*/
+                      )
                 }
 
                 state.isInitialLoading && state.photos.isEmpty() -> {
@@ -92,7 +93,7 @@ fun GalleryScreen(
                         listState = listState,
                         photos = state.photos,
                         onPhotoClick = onPhotoClick,
-                        isLoadingMore = state.isPaginating // Inline spinner
+                        isLoadingMore = state.isPaginating
                     )
                 }
 

@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class GalleryViewModel(
     private val repository: FlickrRepository,
@@ -32,8 +33,7 @@ class GalleryViewModel(
     }
 
     private fun observeSearch() {
-        // Debounces user input and triggers search only after 400ms pause.
-        _query.drop(1) // Skips the initial empty value
+        _query.drop(1)
             .debounce(400)
             .distinctUntilChanged()
             .onEach { query ->
@@ -95,6 +95,13 @@ class GalleryViewModel(
                     repository.searchPhotos(activeQuery, page)
                 }
                 updateState(result, activeQuery, page, append)
+            }catch (e: IOException) {
+                reportGlobalError(e.message.toString())
+
+                _galleryState.update {
+                    it.copy(isInitialLoading = false, isPaginating = false)
+                }
+
             } finally {
                 fetchJob = null
             }

@@ -19,8 +19,8 @@
     <string name="loading_message">Loading photos…</string>
 
     <!-- Details screen -->
-    <string name="details_owner">Author:</string>
-    <string name="photo_id">Photo ID:</string>
+    <string name="details_owner">Author</string>
+    <string name="photo_id">Photo ID</string>
     <string name="details_back">Back</string>
     <string name="visibility">Visibility</string>
 </resources>

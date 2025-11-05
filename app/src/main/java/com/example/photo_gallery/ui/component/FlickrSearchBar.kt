@@ -28,7 +28,7 @@ fun FlickrSearchBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(Dimens.SmallPadding),
+            .padding(top = Dimens.ExtraLargePadding, start = Dimens.SmallPadding, end = Dimens.SmallPadding, bottom = Dimens.SmallPadding),
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(

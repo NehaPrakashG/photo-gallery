@@ -11,8 +11,6 @@ class PagingManager(private val startPage: Int = 1) {
 
 
     fun getNextPage(): Int {
-        if (currentPage >= totalPages) return currentPage
-
         currentPage += 1
         return currentPage
     }

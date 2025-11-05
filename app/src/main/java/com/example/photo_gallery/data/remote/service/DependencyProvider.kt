@@ -5,6 +5,7 @@ import com.example.photo_gallery.data.remote.FlickrApi
 import com.example.photo_gallery.data.remote.NetworkClient
 import com.example.photo_gallery.data.repository.FlickrRepository
 import com.example.photo_gallery.data.repository.FlickrRepositoryImpl
+import com.example.photo_gallery.utils.PagingManager
 
 object DependencyProvider {
 
@@ -24,5 +25,9 @@ object DependencyProvider {
 
     val flickrRepository: FlickrRepository by lazy {
         FlickrRepositoryImpl(api = flickrApi)
+    }
+
+    val pagingManager: PagingManager by lazy{
+        PagingManager(1)
     }
 }

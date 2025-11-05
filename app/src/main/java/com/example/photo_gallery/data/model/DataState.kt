@@ -11,13 +11,13 @@ data class PhotoResult(
 
 data class GalleryState(
     val photos: List<FlickrPhoto> = emptyList(),
-
+    val isInitialRecentLoadComplete: Boolean = false,
     // Pagination & Metadata
     val currentPage: Int = 1,
     val totalPages: Int = 1,
     val totalPhotos: Int = 0,
     val query: String = "",
-
+    val currentActiveSearch: String = "",
     // Loading State Flags
     val isInitialLoading: Boolean = false,
     val isPaginating: Boolean = false,

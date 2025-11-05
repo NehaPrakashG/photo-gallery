@@ -4,44 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.example.photo_gallery.data.remote.service.DependencyProvider
+import com.example.photo_gallery.ui.navigation.AppNavGraph
 import com.example.photo_gallery.ui.theme.Photo_galleryTheme
+import com.example.photo_gallery.utils.createGalleryViewModelFactory
 
 class MainActivity : ComponentActivity() {
+    private val galleryViewModelFactory by lazy {
+        createGalleryViewModelFactory(
+            repository = DependencyProvider.flickrRepository,
+            pagingManager = DependencyProvider.pagingManager
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             Photo_galleryTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                val navController = rememberNavController()
+                AppNavGraph(
+                    navController = navController,
+                    galleryViewModelFactory = galleryViewModelFactory
+                )
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Photo_galleryTheme {
-        Greeting("Android")
     }
 }

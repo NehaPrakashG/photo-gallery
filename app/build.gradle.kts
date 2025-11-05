@@ -71,12 +71,14 @@ dependencies {
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.navigation.runtime.ktx)
 
     // Unit Testing
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.arch.core.testing)
     testImplementation(kotlin("test"))
 
     // Android Instrumentation Testing
